@@ -1,28 +1,53 @@
-.App {
-  text-align: center;
+@import '~antd/dist/antd.css';
+
+html {
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.wrapper, body {
+    height: 100%;
+    margin: 0;
 }
 
-.App-header {
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.app {
+  height: 100vh;
+  margin: 0;
+}
+
+header {
+  position: fixed;
+  margin-top: 0;
   background-color: #222;
-  height: 150px;
+  height: 90px;
   padding: 20px;
   color: white;
+  width: 100%;
 }
 
-.App-title {
-  font-size: 1.5em;
+.app-header {
+  color: #fff;
 }
 
-.App-intro {
-  font-size: large;
+main {
+  height: 100%;
+  padding-top: 90px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.ant-menu {
+  height: 100%;
+  overflow: hidden;
 }
+
+.room-list-container {
+  display: flex;
+  flex-basis: 220px;
+  max-width: 260px;
+  min-height: 100%;
+  height: 100%;
+}
+
