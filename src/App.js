@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Layout } from 'antd';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList.jsx'
 
+const { Header, Content } = Layout;
 
 // Initialize Firebase
 var config = {
@@ -19,16 +21,21 @@ firebase.initializeApp(config);
 class App extends Component {
   render() {
     return (
-      <div className="app">
-        <header>
-          <h1 className="app-header">Bloc Chat</h1>
-        </header>
-        <main>
-          <RoomList
-            firebase={firebase}
-          />
-        </main>
-      </div>
+      <Layout>
+        <Header className="header">
+          <h1>Bloc Chat</h1>
+        </Header>
+        <Layout>
+            <RoomList
+              firebase={firebase}
+             />
+        </Layout>
+        <Layout style={{ marginLeft: 220, height: '100vh' }}>
+          <Content className='main-content'>
+            ChatRoom
+          </Content>
+        </Layout>
+      </Layout>
     );
   }
 }
