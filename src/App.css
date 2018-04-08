@@ -6,18 +6,22 @@ html {
     font-size: 100%;
 }
 
+
 #app {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   height: 100%;
-  margin: 0;
 }
 
 .header {
-    position: fixed; 
+    position: fixed;
     width: 100%;
     display: flex;
     background: #222;
     padding-left: 24px;
+    display: block;
+    z-index: 999;
 }
 
 .header h1 {
@@ -33,7 +37,8 @@ html {
     max-width: 220px !important;
     min-width: 220px !important;
     width: 220px !important;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: fixed;
     left: 0px;
     top: 64px;
@@ -45,15 +50,70 @@ html {
     color: #fff !important;
 }
 
+.ant-menu-inline {
+   border-right: none;
+}
+
 .create-room {
     padding-left: 24px !important;
     padding-right: 24px !important; 
 }
 
 .main-content {
-    margin-top: 64px;
-    overflow: 'initial';
-    padding: 12px 24px 24px;
+   margin-left: 220px;
+   height: 100vh;
+}
+
+.ant-list-empty-text {
+    display: none !important;
+}
+
+.chat-room-container {
+   position: relative;
+   height: inherit;
+}
+
+.chat-room-header {
+   font-family: Verdana, Geneva, sans-serif;
+   position: absolute;
+   top: 64px;
+   width: 100%;
+   background: #888;
+   z-index: 998;
+}
+
+.chat-room-messages {
+  position: absolute;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 100px;
+  top: 128px;
+  bottom: 87px;
+  width: 100%;
+  height: auto;
+  overflow-y: hidden;
+}
+
+.chat-room-messages:hover {
+  position: absolute;
+  top: 128px;
+  bottom: 87px;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
 }
 
 
+.chat-room-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  border-top: 1px solid #e8e8e8;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgb(232, 232, 232);
+}
+
+.message-form {
+    margin-bottom: 0;
+}

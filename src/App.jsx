@@ -3,8 +3,10 @@ import { Layout } from 'antd';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList.jsx'
+import MessageList from './components/MessageList.jsx'
 
-const { Header, Content } = Layout;
+
+const { Header, Content, Sider } = Layout;
 
 // Initialize Firebase
 var config = {
@@ -19,21 +21,40 @@ firebase.initializeApp(config);
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      activeRoom: '',
+    });
+    
+    this.setActiveRoom = this.setActiveRoom.bind(this);
+  }
+  
+  setActiveRoom(room) {
+    this.setState({ activeRoom: room });
+  }
+  
   render() {
+    const activeRoom = this.state.activeRoom;
+    
     return (
       <Layout>
         <Header className="header">
           <h1>Bloc Chat</h1>
         </Header>
-        <Layout>
-            <RoomList
+        
+        <Sider className="side-nav">
+          <RoomList
+            firebase={firebase}
+            setRoom={this.setActiveRoom}
+           />
+        </Sider>
+        
+        <Layout className="main-content">
+            <MessageList
               firebase={firebase}
-             />
-        </Layout>
-        <Layout style={{ marginLeft: 220, height: '100vh' }}>
-          <Content className='main-content'>
-            ChatRoom
-          </Content>
+              room={activeRoom}
+            />
         </Layout>
       </Layout>
     );
