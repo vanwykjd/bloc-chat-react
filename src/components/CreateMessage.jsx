@@ -44,7 +44,6 @@ class CreateMessage extends Component {
   
   render() {
     const content = this.state.content;
-    const room = this.props.room;
     
       return (
           <Form onSubmit={this.handleSubmit}>

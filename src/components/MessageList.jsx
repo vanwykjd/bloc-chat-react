@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import CreateMessage from './CreateMessage.jsx';
 import { Layout, List } from 'antd';
-import InfiniteScroll from 'react-infinite-scroller';
 
-const { Header, Content, Footer } = Layout;
+const { Header, Footer } = Layout;
 const Item = List.Item;
-
 
 class MessageList extends Component { 
   constructor(props) {
@@ -14,14 +12,16 @@ class MessageList extends Component {
       messages: []
     };
     
+    this.messagesOrderedRef = this.props.firebase.database().ref('messages').orderByChild('sentAt');
     this.messagesRef = this.props.firebase.database().ref('messages');
     this.sendMessage = this.sendMessage.bind(this);
     this.timestampFilter = this.timestampFilter.bind(this);
     this.onRoomChange = this.onRoomChange.bind(this);
+    this.scrollToCurrent = this.scrollToCurrent.bind(this);
   }
 
   componentDidMount() { 
-    this.messagesRef.on('child_added', snapshot => {
+    this.messagesOrderedRef.on('child_added', snapshot => {
       const message = snapshot.val();
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat( message ) });
@@ -29,8 +29,9 @@ class MessageList extends Component {
     this.timestampFilter();
   }
   
-
-  
+  componentDidUpdate() {
+    this.scrollToCurrent();
+  }
   
   onRoomChange(room, messages) {
     const messageList = this.state.messages;
@@ -41,7 +42,16 @@ class MessageList extends Component {
       }
     })  
     
-    messages;
+    return messages;
+  }
+  
+  scrollToCurrent() {
+    const room = this.props.room;
+    if (room) {
+      var messageList = document.getElementById('#messages');
+      messageList.scrollTop = messageList.scrollHeight;
+    }
+    
   }
   
   sendMessage(message) {
@@ -58,60 +68,85 @@ class MessageList extends Component {
   timestampFilter(timestamp) {
     var currentTime = new Date();
     var timeSent = new Date(timestamp);
-    var localTime = timeSent.toLocaleTimeString();
-    var timeSentString = timeSent.toString();
+    
+    var timeSentLocal = timeSent.toLocaleTimeString();
 
+     
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    var days =["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    
     var yearSent = timeSent.getFullYear();
     var currentYear = currentTime.getFullYear();
-    var month = timeSentString.slice(4,7);
-    var date = timeSent.getDate();
-    var day = timeSentString.slice(0,3);
-
-    var time = '';
-    var ampm = '';
+    
+    var monthSent = timeSent.getMonth();
+    var currentMonth = currentTime.getMonth();
+    
+    var daySent = timeSent.getDay();
+    
+    var sentDate = timeSent.getDate();
+    var currentDate = currentTime.getDate();
+    
+    var monthSentStr = months[monthSent];
+    
+    var daySentStr = days[daySent];
+    
+    var dateSentRef = new Date(Date.UTC(yearSent, monthSent, sentDate));
+    var currentDateRef = new Date(Date.UTC(currentYear, currentMonth, currentDate));
+    
+    var daySentTS = dateSentRef.valueOf();
+    var currentDayTS = currentDateRef.valueOf();
+    
+    
+    var weekAgoRef = (currentDayTS - daySentTS) / 60000;
+        
+    var time = timeSentLocal.slice(0,4);
+    var ampm = timeSentLocal.slice(7);
     var timeDisplay = '';
 
     var minutesAgo = Math.floor((currentTime - timeSent) / 60000);
-
-      if (localTime.length === 10) {
-        time = localTime.slice(0,4);
-        ampm = localTime.slice(7);
-      } else {
-        time = localTime.slice(0,5);
-        ampm = localTime.slice(8);
-      }
-
+       
+     
+      //Sent less than minute ago...
       if (minutesAgo < 1) {
         timeDisplay = 'Just now';
-      } 
+      }
+      //Sent within an hour...
       else if (minutesAgo < 60) {
         timeDisplay = minutesAgo + ' min';
-      } 
-      else if (minutesAgo > 60 && minutesAgo < 10080) {
-        timeDisplay = day + " " + time + ampm;
-      } 
-      else if (minutesAgo > 10080 && yearSent === currentYear){
-        timeDisplay = month + " " + date + ", " + time + ampm;
-      } else {
-        timeDisplay = month + " " + date + ", " + yearSent;
       }
-
+      //Sent today...
+      else if (daySentTS === currentDayTS) {
+        timeDisplay = time + ampm;
+      }
+      //Sent within a week...
+      else if (weekAgoRef < 10080) {
+        timeDisplay = daySentStr + " " + time + ampm;
+      }
+      //Sent this year...
+      else if (yearSent === currentYear) {
+        timeDisplay = monthSentStr + " " + sentDate + ", " + time + ampm;
+      //Sent a diff year...
+      } else {
+        timeDisplay = monthSentStr + " " + sentDate + ", " + yearSent;
+      }
+    
     return (timeDisplay);
+    
   }
   
 
   render() {
     var messages = [];
     const room = this.props.room;
-    const messageList = this.state.messages;
     const sendMessage = this.sendMessage;
     this.onRoomChange(room, messages);
+    
     if (room) {
       return (
         <div className="chat-room-container">
-          <Header className="chat-room-header"><h1 style={{ color: '#fff', textAlign: 'center', margin: 0 }}>{room.name}</h1></Header>
+          <Header className="chat-room-header"><h1 style={{ color: 'rgba(0, 0, 0, 0.65)', textAlign: 'center', margin: 0 }}>{room.name}</h1></Header>
       
-            <div className="chat-room-messages">
+            <div id="#messages" className="chat-room-messages">
               <List
                   itemLayout="horizontal"
                   dataSource={messages}
@@ -142,7 +177,7 @@ class MessageList extends Component {
       return (
          <div className="chat-room-container">
             <Header className="chat-room-header" style={{ background: 'none' }}>
-              <h3 style={{ color: '#777', textAlign: 'center', margin: 0 }}>Select a Room</h3>
+              <h3 style={{ color: 'rgba(0, 0, 0, 0.45)', textAlign: 'center', margin: 0 }}>Select a Room</h3>
             </Header>
          </div>
      )

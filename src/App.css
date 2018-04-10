@@ -8,10 +8,10 @@ html {
 
 
 #app {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
 }
 
 .header {
@@ -25,7 +25,7 @@ html {
 }
 
 .header h1 {
-   color: #fff;
+    color: #fff;
 }
 
 .side-nav {
@@ -51,7 +51,7 @@ html {
 }
 
 .ant-menu-inline {
-   border-right: none;
+    border-right: none;
 }
 
 .create-room {
@@ -60,8 +60,8 @@ html {
 }
 
 .main-content {
-   margin-left: 220px;
-   height: 100vh;
+    margin-left: 220px;
+    height: 100vh;
 }
 
 .ant-list-empty-text {
@@ -69,49 +69,53 @@ html {
 }
 
 .chat-room-container {
-   position: relative;
-   height: inherit;
+    position: relative;
+    height: inherit;
 }
 
 .chat-room-header {
-   font-family: Verdana, Geneva, sans-serif;
-   position: absolute;
-   top: 64px;
-   width: 100%;
-   background: #888;
-   z-index: 998;
+    font-family: Verdana, Geneva, sans-serif;
+    position: absolute;
+    top: 64px;
+    width: 100%;
+    background: none;
+    border-bottom: 1px solid #e8e8e8;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.55);
+    z-index: 998;
 }
 
 .chat-room-messages {
-  position: absolute;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 100px;
-  top: 128px;
-  bottom: 87px;
-  width: 100%;
-  height: auto;
-  overflow-y: hidden;
+    position: absolute;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 100px;
+    top: 128px;
+    left: 0px;
+    right: 0px;
+    bottom: 63px;
+    height: auto;
+    overflow-y: hidden;
 }
 
 .chat-room-messages:hover {
-  position: absolute;
-  top: 128px;
-  bottom: 87px;
-  width: 100%;
-  height: auto;
-  overflow-y: auto;
+    position: absolute;
+    top: 128px;
+    left: 0px;
+    right: 0px;
+    bottom: 63px;
+    height: auto;
+    overflow-y: scroll;
+    width: inherit;
 }
 
 
 .chat-room-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0px;
-  border-top: 1px solid #e8e8e8;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: rgb(232, 232, 232);
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    padding: 0px 24px 24px 24px;
 }
 
 .message-form {

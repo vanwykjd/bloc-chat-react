@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import CreateRoom from './CreateRoom.jsx';
-import { Layout, Menu, Icon } from 'antd';
+import { Menu, Icon } from 'antd';
 
 
 const SubMenu = Menu.SubMenu;
-const { Sider } = Layout;
 const Item = Menu.Item;
 
 class RoomList extends Component { 

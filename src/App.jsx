@@ -6,7 +6,7 @@ import RoomList from './components/RoomList.jsx'
 import MessageList from './components/MessageList.jsx'
 
 
-const { Header, Content, Sider } = Layout;
+const { Header, Sider } = Layout;
 
 // Initialize Firebase
 var config = {
