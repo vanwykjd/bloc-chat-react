@@ -20,12 +20,15 @@ html {
     display: flex;
     background: #222;
     padding-left: 24px;
+    padding-right: 24px;
     display: block;
     z-index: 999;
 }
 
 .header h1 {
     color: #fff;
+    width: auto;
+    float: left;
 }
 
 .side-nav {
@@ -54,6 +57,32 @@ html {
     border-right: none;
 }
 
+.user-menu {
+    height: 64px;
+    border-bottom: none
+}
+
+.sign-in {
+    padding: 0px 12px;
+    height: 64px;
+    line-height: 64px;
+    border-bottom: none
+}
+
+.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu div {
+  height: 100%;
+  line-height: 64px;
+  font-size: 1.17em;
+  font-weight: 500;
+}
+
+
 .create-room {
     padding-left: 24px !important;
     padding-right: 24px !important; 
@@ -71,6 +100,10 @@ html {
 .chat-room-container {
     position: relative;
     height: inherit;
+}
+
+.ant-modal-body {
+    text-align: center;
 }
 
 .chat-room-header {

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Layout } from 'antd';
+import { Layout, Menu } from 'antd';
 import './App.css';
 import * as firebase from 'firebase';
-import RoomList from './components/RoomList.jsx'
-import MessageList from './components/MessageList.jsx'
+import RoomList from './components/RoomList.jsx';
+import MessageList from './components/MessageList.jsx';
+import User from './components/User.jsx';
 
 
 const { Header, Sider } = Layout;
@@ -17,44 +18,63 @@ var config = {
     storageBucket: "react-bloc-chat-32b88.appspot.com",
     messagingSenderId: "381884651448"
   };
-firebase.initializeApp(config);
 
+firebase.initializeApp(config);
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = ({
+      user: '',
       activeRoom: '',
     });
     
     this.setActiveRoom = this.setActiveRoom.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
   
   setActiveRoom(room) {
     this.setState({ activeRoom: room });
   }
   
+  setUser(user) {
+    this.setState({ user: user })
+    console.log(user);
+  }
+  
   render() {
     const activeRoom = this.state.activeRoom;
-    
+    const user = this.state.user;
     return (
+      
       <Layout>
         <Header className="header">
           <h1>Bloc Chat</h1>
+          
+
         </Header>
-        
         <Sider className="side-nav">
-          <RoomList
-            firebase={firebase}
-            setRoom={this.setActiveRoom}
-           />
+          <Menu mode="inline">
+            <User
+              firebase={firebase}
+              setUser={this.setUser}
+              user={user}
+            />
+            <RoomList
+              firebase={firebase}
+              setRoom={this.setActiveRoom}
+             />
+            </Menu>
         </Sider>
         
         <Layout className="main-content">
+            
             <MessageList
               firebase={firebase}
               room={activeRoom}
             />
+            
+            
         </Layout>
       </Layout>
     );
