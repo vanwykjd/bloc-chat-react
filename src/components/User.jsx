@@ -34,6 +34,7 @@ class User extends Component {
   
   handleSignOut() {
     this.props.firebase.auth().signOut();
+    window.location.reload();
   }
   
   handleError() {

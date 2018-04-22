@@ -43,6 +43,7 @@ class RoomList extends Component {
   render() {
      const rooms = this.state.rooms;
      const createRoom = this.createRoom;
+     const user = this.props.user;
     
      return (
        <div>
@@ -56,6 +57,7 @@ class RoomList extends Component {
                   </Item>
               )}
               <CreateRoom
+                user={user}
                 createRoom = {createRoom}
               />
             </SubMenu>

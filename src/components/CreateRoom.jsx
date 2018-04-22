@@ -17,15 +17,21 @@ class NewRoomForm extends Component {
   }
   
   toggleVisibility() {
-    if (this.state.visible) {
-      this.setState({
-        visible: false
-      })
+    const user = this.props.user;
+    
+    if (user) {
+      if (this.state.visible) {
+        this.setState({
+          visible: false
+        })
+      } else {
+        this.setState({
+          room: '',
+          visible: true
+        })
+      }
     } else {
-      this.setState({
-        room: '',
-        visible: true
-      })
+      alert("You need to be signed in to create rooms.");
     }
 	}
   

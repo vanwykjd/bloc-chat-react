@@ -39,7 +39,6 @@ class App extends Component {
   
   setUser(user) {
     this.setState({ user: user })
-    console.log(user);
   }
   
   render() {
@@ -52,6 +51,7 @@ class App extends Component {
           <h1>Bloc Chat</h1>
         </Header>
         <Sider className="side-nav">
+          
           <User
               firebase={firebase}
               setUser={this.setUser}
@@ -61,6 +61,7 @@ class App extends Component {
           <RoomList
             firebase={firebase}
             setRoom={this.setActiveRoom}
+            user={user}
            />
         </Sider>
         
@@ -68,6 +69,7 @@ class App extends Component {
           <MessageList
             firebase={firebase}
             room={activeRoom}
+            user={user}
           />
         </Layout>
       </Layout>
