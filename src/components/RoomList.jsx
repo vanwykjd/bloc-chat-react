@@ -59,7 +59,6 @@ class RoomList extends Component {
                 createRoom = {createRoom}
               />
             </SubMenu>
-            
           </Menu>
       
        </div>

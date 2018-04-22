@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList.jsx';
@@ -50,31 +50,25 @@ class App extends Component {
       <Layout>
         <Header className="header">
           <h1>Bloc Chat</h1>
-          
-
         </Header>
         <Sider className="side-nav">
-          <Menu mode="inline">
-            <User
+          <User
               firebase={firebase}
               setUser={this.setUser}
               user={user}
             />
-            <RoomList
-              firebase={firebase}
-              setRoom={this.setActiveRoom}
-             />
-            </Menu>
+         
+          <RoomList
+            firebase={firebase}
+            setRoom={this.setActiveRoom}
+           />
         </Sider>
         
         <Layout className="main-content">
-            
-            <MessageList
-              firebase={firebase}
-              room={activeRoom}
-            />
-            
-            
+          <MessageList
+            firebase={firebase}
+            room={activeRoom}
+          />
         </Layout>
       </Layout>
     );
